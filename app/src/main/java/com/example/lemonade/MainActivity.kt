@@ -91,8 +91,8 @@ class MainActivity : AppCompatActivity() {
      * Clicking will elicit a different response depending on the state.
      * This method determines the state and proceeds with the correct action.
      */
-    private fun clickLemonImage(){
-        lemonadeState = when (lemonadeState) {
+    private fun clickLemonImage() =
+        lemonadewhen (lemonadeState) {
             SELECT -> SQUEEZE
             SQUEEZE -> {
                 if (lemonSize == 0) {
