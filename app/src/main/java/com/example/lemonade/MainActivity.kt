@@ -78,8 +78,8 @@ class MainActivity : AppCompatActivity() {
             // TODO: call the method that handles the state when the image is clicked
         }
         lemonImage!!.setOnLongClickListener {
-            showSnackbar()
             // TODO: replace 'false' with a call to the function that shows the squeeze count
+            showSnackbar()
         }
     }
 
@@ -99,25 +99,19 @@ class MainActivity : AppCompatActivity() {
      * Clicking will elicit a different response depending on the state.
      * This method determines the state and proceeds with the correct action.
      */
-    private fun clickLemonImage() {
-        lemonadeState = when (lemonadeState) {
-            SELECT -> {
-                SQUEEZE
-            }
-            SQUEEZE -> {
-                if (lemonSize == 0) {
-                    DRINK
-                } else {
-                    SQUEEZE
-                }
-            }
-            DRINK -> {
-                RESTART
-            }
-            else -> {
-                SELECT
+    private fun clickLemonImage(){
+    when(lemonadeState){
+        SELECT -> lemonadeState = SQUEEZE
+        SQUEEZE -> {
+            if (lemonSize == 0) {
+                lemonadeState = DRINK
+            } else {
+                lemonadeState = SQUEEZE
             }
         }
+        DRINK -> lemonadeState = RESTART
+        else -> lemonadeState = SELECT
+    }
 
         if (lemonadeState == SELECT) {
             lemonSize = lemonTree.pick()
@@ -145,7 +139,7 @@ class MainActivity : AppCompatActivity() {
             SQUEEZE -> textAction.setText(R.string.lemon_squeeze)
             DRINK -> textAction.setText(R.string.lemon_drink)
             else -> textAction.setText(R.string.lemon_empty_glass)
-    }
+        }
 
     val drawableResource = when (lemonadeState) {
         SELECT -> R.drawable.lemon_tree
@@ -158,19 +152,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
-//SELECT:
-//Text: Click to select a lemon!
-
-//SQUEEZE:
-//Text: Click to juice the lemon!
-
-//DRINK:
-//Text: Click to drink your lemonade!
-
-//RESTART:
-//Text: Click to start again!
-
 
         // TODO: set up a conditional that tracks the lemonadeState
 
@@ -187,7 +168,7 @@ class MainActivity : AppCompatActivity() {
      *
      * Long clicking the lemon image will show how many times the lemon has been squeezed.
      */
-    private fun showSnackbar(): Boolean {
+    private fun showSnackbar(): kotlin.Boolean {
         if (lemonadeState != SQUEEZE) {
             return false
         }
