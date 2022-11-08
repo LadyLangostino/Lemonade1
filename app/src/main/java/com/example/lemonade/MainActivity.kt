@@ -101,31 +101,27 @@ class MainActivity : AppCompatActivity() {
      */
     private fun clickLemonImage(){
     when(lemonadeState){
-        SELECT -> lemonadeState = SQUEEZE
+        SELECT -> {
+            lemonadeState = SQUEEZE
+            lemonSize = lemonTree.pick()
+            squeezeCount = 0
+        }
         SQUEEZE -> {
+            lemonSize = lemonSize - 1
+            squeezeCount = squeezeCount + 1
             if (lemonSize == 0) {
                 lemonadeState = DRINK
             } else {
                 lemonadeState = SQUEEZE
             }
         }
-        DRINK -> lemonadeState = RESTART
+        DRINK -> {
+            lemonadeState = RESTART
+            lemonSize = -1
+        }
         else -> lemonadeState = SELECT
     }
 
-        if (lemonadeState == SELECT) {
-            lemonSize = lemonTree.pick()
-            squeezeCount = 0
-        }
-
-        if (lemonadeState == SQUEEZE) {
-            lemonSize = lemonSize - 1
-            squeezeCount = squeezeCount + 1
-        }
-
-        if (lemonadeState == DRINK) {
-            lemonSize = -1
-        }
     }
 
 
@@ -134,20 +130,35 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setViewElements() {
         val textAction: TextView = findViewById(R.id.text_action)
+        val lemonImage: ImageView= findViewById(R.id.image_lemon_state)
+        //esta ultima val lemonImage yo no la tenia setteada asi
         when(lemonadeState){
-            SELECT -> textAction.setText(R.string.lemon_select)
-            SQUEEZE -> textAction.setText(R.string.lemon_squeeze)
-            DRINK -> textAction.setText(R.string.lemon_drink)
-            else -> textAction.setText(R.string.lemon_empty_glass)
-        }
+            SELECT -> {
+                textAction.setText(R.string.lemon_select)
+                lemonImage.setImageResource(R.drawable.lemon_tree)
+            }
+            SQUEEZE -> {
+                textAction.setText(R.string.lemon_squeeze)
+                lemonImage.setImageResource(R.drawable.lemon_squeeze)
+            }
+            DRINK -> {
+                textAction.setText(R.string.lemon_drink)
+                lemonImage.setImageResource(R.drawable.lemon_drink)
+            }
+            else -> {
+                textAction.setText(R.string.lemon_empty_glass)
+                lemonImage.setImageResource(R.drawable.lemon_restart)
 
-    val drawableResource = when (lemonadeState) {
-        SELECT -> R.drawable.lemon_tree
-        SQUEEZE -> R.drawable.lemon_squeeze
-        DRINK -> R.drawable.lemon_drink
-        else -> R.drawable.lemon_restart
-    }
-        lemonImage?.setImageResource(drawableResource)
+            }
+        }
+//yo habia hecho esto en vez de val lemonImage
+    //val drawableResource = when (lemonadeState) {
+      //  SELECT -> R.drawable.lemon_tree
+     //   SQUEEZE -> R.drawable.lemon_squeeze
+      //  DRINK -> R.drawable.lemon_drink
+       // else -> R.drawable.lemon_restart
+    //}
+     //   lemonImage?.setImageResource(drawableResource)
 
 
 
