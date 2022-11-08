@@ -130,24 +130,22 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setViewElements() {
         val textAction: TextView = findViewById(R.id.text_action)
-        val lemonImage: ImageView= findViewById(R.id.image_lemon_state)
-        //esta ultima val lemonImage yo no la tenia setteada asi
         when(lemonadeState){
             SELECT -> {
                 textAction.setText(R.string.lemon_select)
-                lemonImage.setImageResource(R.drawable.lemon_tree)
+                lemonImage?.setImageResource(R.drawable.lemon_tree)
             }
             SQUEEZE -> {
                 textAction.setText(R.string.lemon_squeeze)
-                lemonImage.setImageResource(R.drawable.lemon_squeeze)
+                lemonImage?.setImageResource(R.drawable.lemon_squeeze)
             }
             DRINK -> {
                 textAction.setText(R.string.lemon_drink)
-                lemonImage.setImageResource(R.drawable.lemon_drink)
+                lemonImage?.setImageResource(R.drawable.lemon_drink)
             }
             else -> {
                 textAction.setText(R.string.lemon_empty_glass)
-                lemonImage.setImageResource(R.drawable.lemon_restart)
+                lemonImage?.setImageResource(R.drawable.lemon_restart)
 
             }
         }
